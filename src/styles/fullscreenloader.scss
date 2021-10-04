@@ -1,0 +1,11 @@
+@import "../base";
+
+.loader-container{
+  @extend %flex-layout;
+  height: 70vh;
+  
+  img{
+    width: 80px;
+    height: 80px;
+  }
+}

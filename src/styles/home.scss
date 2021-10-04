@@ -1,0 +1,65 @@
+@import "../base";
+
+.home-container{
+  @extend %flex-layout;
+  flex-direction: column;
+  width: 100%;
+
+  main{
+    @extend %flex-layout;
+    flex-direction: column;
+    width: 100%;
+
+    .products-wrapper{
+      @extend %flex-layout;
+      flex-direction: row;
+      flex-wrap: wrap;
+      width: 100%;
+      padding: 10px;
+      overflow: hidden;
+    }
+
+    .search-wrapper{
+      @extend %flex-layout;
+      width: 100%;
+      margin-top: 10px;
+
+      input{
+        width: 80%;
+        height: 40px;
+        padding: 10px;
+        margin-right: 10px;
+        border: 1px solid $primary-color;
+        border-radius: 10px;
+        overflow: hidden;
+
+        &:focus{
+          outline: none;
+        }
+      }
+
+      button{
+        height: 40px;
+        width: 30px;
+        border: none;
+        border-radius: 10px;
+        background-color: $text-color;
+        cursor: pointer;
+        transition: all 0.1s ease-in-out;
+
+        &:active{
+          outline: none;
+        }
+        
+        &:hover{
+          background-color: $primary-color;
+          color: $text-color;
+        }
+
+        i{
+          font-size: 20px;
+        }
+      }
+    }
+  }
+}

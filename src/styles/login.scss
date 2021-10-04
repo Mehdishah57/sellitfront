@@ -1,0 +1,139 @@
+@import "../base";
+
+#icon-size{
+    font-size: 30px;
+}
+
+#icon-size-x{
+    font-size: 40px;
+}
+
+.login-container{
+    padding: 20px;
+    height: 80vh;
+
+    &, form{
+        @extend %flex-layout;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    form{
+        padding: 10px;
+        height: 80%;
+        max-width: 400px;
+
+        .error-wrapper {
+            color: red;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-weight: 500;
+            margin-top: 10px;
+            padding: 5px;
+        }
+
+        .success-wrapper{
+            color: rgb(62, 173, 62);
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-weight: 500;
+            margin-top: 10px;
+            padding: 5px;
+        }
+
+        .field-wrapper{
+            @extend %flex-layout;
+            position: relative;
+            width: 100%;
+            margin-top: 30px;
+
+            label{
+                margin-right: 5px;
+            }
+
+            .sub-wrapper{
+                position: relative;
+                width: 80%;
+                overflow: hidden;
+
+                &:focus-within .bottom-border{
+                    transform: translateX(0px);
+                }
+            }
+
+            input{
+                @extend %flex-layout;
+                width: 100%;
+                height: 40px;
+                border: 1px solid $medium-color;
+                border: none;
+                border-bottom: 1px solid $medium-color;
+                padding-left: 5px;
+                overflow: hidden;
+                transition: all 0.2s ease-in-out;
+    
+                &:focus{
+                    outline: none;
+                }
+            }
+
+            .bottom-border{
+                position: absolute;
+                width: 100%;
+                height: 2px;
+                background-color: $primary-color;
+                bottom: 0%;
+                transform: translateX(500px);
+                transition: transform 0.2s ease-in-out;
+            }
+        }
+
+        button{
+            @extend %flex-layout;
+            margin-top: 20px;
+            background-color: $text-color;
+            border: none;
+            border-radius: 10px;
+            height: 40px;
+            width: 80px;
+            color: $primary-color;
+            border: 1px solid $primary-color;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.1s ease-in-out;
+
+            &:hover{
+                background-color: $primary-color;
+                color: $text-color;
+            }
+
+            &:active{
+                width: 70px;
+                height: 30px;
+            }
+
+            img {
+                width: 15px;
+                height: 15px;
+                margin-left: 5px;
+            }
+        }
+
+        button:active{
+            outline: none;
+        }
+
+        .button-wrapper{
+            @extend %flex-layout;
+            flex-direction: row;
+
+            a{
+                @extend %flex-layout;
+                text-decoration: none;
+                height: 40px;
+                margin-top: 20px;
+                margin-left: 10px;
+                color: $primary-color;
+                transition: all 0.1s ease-in-out;
+            }
+        }
+    }
+}

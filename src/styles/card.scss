@@ -1,0 +1,51 @@
+@import "../base";
+
+.card-container{
+  @extend %flex-layout;
+  flex-direction: column;
+  position: relative;
+  width: 250px;
+  height: 340px;
+  border: 1px solid $medium-color;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+  cursor: pointer;
+  overflow: hidden;
+  background-color: $text-color;
+  z-index: 100;
+  transition: all 0.1s ease-in-out;
+
+  &:hover{
+    background-color: $primary-color;
+    
+    .title{
+      color: $text-color;
+    }
+  }
+
+  img{
+    position: absolute;
+    top: 30px;
+    height: 200px;
+    border-radius: 10px;
+  }
+
+  .title{
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    bottom: 30px;
+    font-size: 12px;
+    color: $primary-color;
+  }
+
+  .price{
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    bottom: 60px;
+    font-size: 14px;
+    color: rgb(35, 163, 35);
+  }
+}

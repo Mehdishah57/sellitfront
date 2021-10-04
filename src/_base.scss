@@ -1,0 +1,10 @@
+$primary-color: #222222;
+$medium-color: rgb(167, 167, 167);
+$text-color: white;
+$blue: dodgerblue;
+
+%flex-layout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

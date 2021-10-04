@@ -1,0 +1,49 @@
+@import "../base";
+
+.navigation {
+  padding: 10px;
+  height: 80px;
+  overflow: hidden;
+
+  &, ul, li, a {
+    @extend %flex-layout;
+    transition: all 0.1s ease-in-out;
+  }
+
+  ul, li{
+    padding: 0 5px 0 5px;
+  }
+
+  .nav-ul-1 {
+    justify-content: space-evenly;
+    width: 80%;
+    height: 100%;
+  }
+
+  li {
+    height: 100%;
+    cursor: pointer;
+    border-radius: 10px;
+  }
+
+  li:hover {
+    background-color: $primary-color;
+    color: white;
+    border-radius: 10px;
+  }
+
+  li:active{
+    height: 80%;
+  }
+
+  a{
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+.list-active{
+  background-color: $primary-color;
+  color: $text-color;
+  border-radius: 10px;
+}

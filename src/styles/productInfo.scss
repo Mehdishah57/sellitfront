@@ -1,0 +1,145 @@
+@import "../base";
+
+.product-info-container{
+  @extend %flex-layout;
+  flex-direction: column;
+  width: 100%;
+}
+
+.image-container{
+  @extend %flex-layout;
+  position: relative;
+  flex-direction: row;
+  overflow: hidden;
+  width: 100%;
+  max-width: 600px;
+  height: 450px;
+
+  .button-left, .button-right{
+    position: absolute;
+    @extend %flex-layout;
+    cursor: pointer;
+    height: 100%;
+    width: 15%;
+    transition: all 0.1s ease-in-out;
+
+    &:hover{
+      background-color: rgba(0, 0, 0, 0.329);
+    }
+  }
+
+  .button-left{
+    left: 0;
+  }
+
+  .button-right{
+    right: 0;
+  }
+}
+
+.title-container{
+  @extend %flex-layout;
+  font-weight: bold;
+  margin-top: 20px;
+  font-size: 20px;
+  text-align: center;
+}
+
+.price-container{
+  @extend %flex-layout;
+  color: green;
+  font-weight: bolder;
+  font-size: 20px;
+  margin-top: 20px
+}
+
+.description-container{
+  @extend %flex-layout;
+  margin-top: 20px;
+  width: 100%;
+  max-width: 600px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+}
+
+.owner-info{
+  @extend %flex-layout;
+  width: 100%;
+  max-width: 600px;
+  height:200px;
+  overflow: hidden;
+  margin-top: 20px;
+  position: relative;
+  background-color: $primary-color;
+
+  .owner-name{
+    position: absolute;
+    color: $medium-color;
+    right: 10%;
+    bottom: 60%;
+  }
+
+  .owner-phone{
+    position: absolute;
+    right: 30%;
+    bottom: 40%;
+    padding: 5px;
+    background-color: white;
+    font-size: 13px;
+    text-decoration: none;
+    color: $primary-color;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  button{
+    position: absolute;
+    right: 10%;
+    bottom: 40%;
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: white;
+
+    &:hover{
+      background-color:goldenrod;
+    }
+
+    &:active{
+      outline: none;
+    }
+  }
+
+  img{
+    position: absolute;
+    width: 30%;
+    height: 80%;
+    border-radius: 100vh;
+    left: 10px;
+    border: 2px solid white;
+  }
+}
+
+.page-change{
+  .current-page{
+    margin: 0 5px 0 5px;
+    color: $medium-color;
+    font-weight: bolder;
+    cursor: context-menu;
+    transition: all 0.1s ease-in-out;
+
+    &:hover{
+      color: $primary-color;
+    }
+  }
+  .prev-page, .next-page{
+    color: $medium-color;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+    
+    &:hover{
+      color: $primary-color;
+    }
+  }
+}

@@ -1,0 +1,61 @@
+@import "../base";
+
+.title-form{
+  @extend %flex-layout;
+  flex-direction: column;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+  padding: 20px;
+  margin: 20px;
+
+  .title-form-field-wrapper{
+    @extend %flex-layout;
+    position: relative;
+    width: 100%;
+    margin-bottom: 10px;
+
+    .title-placeholder{
+      position: absolute;
+      left: 0px;
+      color: $medium-color;
+      transition: all 0.2s ease-in-out;
+    }
+
+    &:focus-within {
+      .title-placeholder{
+        left: 0px;top:0px;
+        font-size: 10px;
+      }
+    }
+
+    input{
+      border: none;
+      border-bottom: 1px solid $medium-color;
+      width: 100%;
+      height: 40px;
+      z-index: 100;
+      background-color: transparent;
+      padding: 10px 10px 2px 0px;
+  
+      &:focus{
+        outline: none;
+      }
+    }
+  }
+
+  button{
+    border: none;
+    border-radius: 10px;
+    background-color: $primary-color;
+    color: $text-color;
+    font-weight: bolder;
+    padding: 15px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+
+    &:hover{
+      box-shadow: 0 1px 5px rgb(31, 31, 31);
+    }
+  }
+}

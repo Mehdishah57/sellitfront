@@ -1,0 +1,36 @@
+@import "../base";
+
+.mycard-options{
+  @extend %flex-layout;
+  position: absolute;
+  z-index: 9999999; cursor: pointer;
+  left: 20px; top: 20px;
+  transition: all 0.2s ease-in-out;
+}
+
+.options-menu{
+  @extend %flex-layout;
+  flex-direction: column;
+  position: absolute;
+  background-color: rgb(44, 44, 44);
+  width: 50px;
+  height: 340px;
+  top: 10px;
+  border-radius: 10px;
+  transform: translateX(210px);
+  z-index: 10;
+  transition: all 0.2s ease-in-out;
+
+  li{
+    @extend %flex-layout;
+    color: $text-color;
+    width: 100%; cursor: pointer;
+    height: 40px; border-radius: 10px;
+    transition: all 0.1s ease-in-out;
+
+    &:hover{
+      background-color: $text-color;
+      color: $primary-color;
+    }
+  }
+}

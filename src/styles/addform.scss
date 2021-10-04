@@ -1,0 +1,27 @@
+@import "../base";
+
+.form-container{
+    @extend %flex-layout;
+    flex-direction: column;
+    width: 100%;
+    min-height: 70vh;
+
+    .change-entry{
+        @extend %flex-layout;
+        background-color: rgb(58, 204, 58);
+        padding: 10px;
+        margin-top: 10px;
+        color: $text-color;
+        font-weight: bolder;
+        cursor: pointer;
+    }
+
+    .category{
+        text-align: center;
+        margin: 10px 0 10px 0;
+        padding: 10px;
+        cursor: pointer;
+        border: 1px solid $medium-color;
+        transition: all 0.1s ease-in-out;
+    }
+}

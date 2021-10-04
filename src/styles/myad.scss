@@ -1,0 +1,17 @@
+@import "../base";
+
+.myad-container{
+  @extend %flex-layout;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 10px;
+  overflow: hidden;
+
+  .alternate-h3{
+    @extend %flex-layout;
+    width: 100%;
+    height: 70vh;
+    color: $medium-color;
+  }
+}
