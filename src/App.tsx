@@ -1,4 +1,4 @@
-import React,{ useState, useEffect, useRef } from 'react';
+import React ,{ useState, useEffect, useRef } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import './App.scss';
 import Login from './pages/Login';
@@ -30,7 +30,7 @@ const App = () => {
   }
 
   useEffect(()=>{
-    appReload.current()
+    appReload.current();
   },[]);
 
   useEffect(()=>{

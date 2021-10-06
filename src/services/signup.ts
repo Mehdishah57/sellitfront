@@ -4,7 +4,7 @@ const signup = async (payload:any) => {
   try {
     const {data} = await axios.post(`${process.env.REACT_APP_SERVER}/api/user/signup`,payload);
     return {data, error:null}
-  } catch (error) {
+  } catch (error: any) {
     return {data:null, error}
   }
 }

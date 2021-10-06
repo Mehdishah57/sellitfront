@@ -17,7 +17,7 @@
   height: 340px;
   top: 10px;
   border-radius: 10px;
-  transform: translateX(210px);
+  transform: translateX(260px);
   z-index: 10;
   transition: all 0.2s ease-in-out;
 
@@ -33,4 +33,16 @@
       color: $primary-color;
     }
   }
+}
+
+.green{
+  color: rgb(75, 201, 75);
+  left: 40px;
+  font-size: 15px;
+}
+
+.yellow {
+  color: rgb(228, 217, 66);
+  left: 40px;
+  font-size: 15px;
 }

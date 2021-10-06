@@ -6,6 +6,8 @@ import FullScreenLoader from './../components/FullScreenLoader';
 import { useHistory } from 'react-router-dom';
 import MyCard from './../components/MyCard';
 import deleteMyProduct from './../services/deleteMyProduct';
+import activateMyProduct from '../services/activateMyAd';
+import deactivateMyProduct from './../services/deactivateMyAd';
 
 const MyAds: React.FC = () => {
   const { state } = useContext(UserContext);
@@ -40,13 +42,29 @@ const MyAds: React.FC = () => {
     setData(tempArr);
   }
 
+  const handleItemActivation = async(_id: string) => {
+    setLoading(true);
+    const { error } = await activateMyProduct(_id, state.clientIdentity);
+    if(error) console.log(error);
+    if(!error) data.map( item => item._id === _id? item.active = true: null)
+    setLoading(false);
+  }
+
+  const handleItemDeactivation = async(_id: string) => {
+    setLoading(true);
+    const { error } = await deactivateMyProduct(_id, state.clientIdentity);
+    if(error) console.log(error);
+    if(!error) data.map( item => item._id === _id? item.active = false: null)
+    setLoading(false);
+  }
+
   if(loading) return <FullScreenLoader />
   if(error) return <div className="myad-container">
     <h3 className="alternate-h3">There was some error {console.log(error)}</h3>
   </div>
   return (
     <div className="myad-container">
-      {data? data.map( (item: any) => <MyCard onClick={handleCardClick} key={item._id} item={item} onDelete={handleAdDelete} /> ): null}
+      {data? data.map( (item: any) => <MyCard onClick={handleCardClick} key={item._id} item={item} onDelete={handleAdDelete} onActiveClick={handleItemActivation} onDeactiveClick={handleItemDeactivation} /> ): null}
       {((data && !data.length) && !loading) ? <h3 className="alternate-h3">Post some Ads</h3> : null}
     </div>
   )
