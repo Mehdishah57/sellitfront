@@ -7,6 +7,10 @@ import { useHistory, Route, Redirect, Switch } from "react-router-dom";
 import "../styles/addform.scss";
 import TitleForm from "./TitleForm";
 import Category from "./Category";
+import Description from './Description';
+import ProductAddtionals from './ProductAddtionals';
+import addProduct from './../services/addProduct';
+import PreviewAd from './PreviewAd';
 
 
 const AddForm: React.FC = () => {
@@ -35,6 +39,18 @@ const AddForm: React.FC = () => {
     fetchCategories.current();
   }, []);
 
+  const formSubmission = async() => {
+    setLoading(true);
+    const formData = new FormData();
+    Object.keys(localState).map( key => key==="mainCategory" ? formData.append(`${key}`,localState[key].name) : formData.append(`${key}`,localState[key]) );
+    Object.keys(localState.picture).map( key => formData.append(key,localState.picture[key]) );
+    formData.append("owner",state._id);
+    const { data, error } = await addProduct(formData, state.clientIdentity);
+    if(error) console.log(error.response)
+    if(data) console.log(data)
+    setLoading(false);
+  }
+
   if (!state || !state._id) history.push("/dashboard/login");
   if (loading) return <FullScreenLoader />;
   if(error) return <div className="form-container">{error}</div>;
@@ -43,22 +59,11 @@ const AddForm: React.FC = () => {
       <Switch>
         <Route path="/dashboard/addForm/category" component={()=><Category categoryData={categoryData} state={localState} setState={setLocalState}/>}/>
         <Route path="/dashboard/addForm/titleForm" component={()=>< TitleForm localState={localState} setLocalState={setLocalState}/>} />
+        <Route path="/dashboard/addForm/description" component={()=><Description localState={localState} setLocalState={setLocalState}/>} />
+        <Route path="/dashboard/addForm/productadditionals" component={()=><ProductAddtionals localState={localState} setLocalState={setLocalState} />} />
+        <Route path="/dashboard/addForm/previewAd" component={()=><PreviewAd localState={localState} submitForm={formSubmission}/>} />
         <Redirect to="/dashboard/addForm/category" />
       </Switch>
-      {/* {
-        !localState.mainCategory && categoryData && <div>{categoryData.map(
-          (category: any) => <div className="category" onClick={()=>setLocalState({...localState,mainCategory:category})} key={category._id}>{category.name}</div>
-        )}</div>
-      }
-      {
-        localState.mainCategory && !localState.subCategory && <div>{localState.mainCategory.subCategories?.map(
-          (subCategory: string) => <div className="category" onClick={()=>setLocalState({...localState, subCategory})} key={localState.mainCategory._id}>{subCategory}</div> )
-        }</div>
-      }
-      {
-        localState.mainCategory && localState.subCategory && !localState.title && <TitleForm localState={localState} setLocalState={setLocalState} />
-      } */}
-      {/* {Object.keys(localState).map((key) => <div onClick={()=>setLocalState({...localState,[key]:null})} className="change-entry">{typeof localState[key] === 'string'? localState[key]: localState[key]?.name || localState[key]?.title}</div>)} */}
     </div>
   );
 };

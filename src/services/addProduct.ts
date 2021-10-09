@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const addProduct = async (formData: FormData, state: any) => {
+const addProduct = async (formData: FormData, clientIdentity: string) => {
   try {
     const { data } = await axios.post(
       `${process.env.REACT_APP_SERVER}/api/product/add`,
@@ -9,12 +9,12 @@ const addProduct = async (formData: FormData, state: any) => {
         withCredentials: true,
         headers: {
           "Content-Type": "multipart/form-data",
-          "clientIdentity": state.clientIdentity,
+          "clientIdentity": clientIdentity,
         },
       }
     );
     return { data, error: null };
-  } catch (error) {
+  } catch (error: any) {
     return { data: null, error };
   }
 };

@@ -1,0 +1,70 @@
+@import "../base";
+
+.description-wrapper{
+  @extend %flex-layout;
+  flex-direction: column;
+  width: 100%;
+
+  .textarea-wrapper{
+    @extend %flex-layout;
+    position: relative;
+    width: 95%;
+    height: 70vh;
+
+    textarea{
+      width: 100%;
+      height: 100%;
+      padding: 20px;
+      font-size: 18px;
+      border: 1px solid $primary-color;
+      border-radius: 10px;
+      overflow: hidden;
+      resize: none;
+      transition: all 0.1s ease-in-out;
+      
+      &:focus{
+        outline: none;
+        border: 2px solid $primary-color;
+      }
+    }
+
+    .counter{
+      @extend %flex-layout;
+      position: absolute;
+      font-size: larger;
+      bottom: 10px;
+      left: 10px;
+      color: green
+    }
+  }
+
+  button{
+    @extend %flex-layout;
+    padding: 20px;
+    background-color: $primary-color;
+    color: $text-color;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 5px;
+    margin-top: 10px;
+    box-shadow: 2px 1px 5px $medium-color;
+    transition: all 0.1s ease-in-out;
+
+    &:hover{
+      background-color: rgba(0, 0, 0, 0.808);
+    }
+
+    &:active{
+      outline:none;
+      background-color: rgba(0, 0, 0, 0.733);
+    }
+  }
+
+  .error-div{
+    color: red;
+    font-weight: bolder;
+    font-size: 17px;
+    margin-top: 20px;
+  }
+}

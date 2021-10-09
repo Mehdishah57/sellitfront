@@ -6,6 +6,7 @@ import "../styles/productInfo.scss";
 
 const ProductInfo = () => {
   const [data, setData] = useState<any>();
+  const [error, setError] = useState<any>("");
   const [activeImage, setActiveImage] = useState<any>("");
   const fetchProductInfo = useRef<any>(null);
 
@@ -13,7 +14,7 @@ const ProductInfo = () => {
 
   fetchProductInfo.current = async () => {
     const { error, data } = await getProductInfo(id);
-    if(error) return;
+    if(error || !data) return setError("Issue Loading Ads");
     setData(data);setActiveImage(data.picture.image1.url);
   }
 
@@ -52,7 +53,10 @@ const ProductInfo = () => {
     }
   }
 
-  if(!data) return <FullScreenLoader />
+  if(error && !data) return <div className="product-info-container">
+    <h3 className="alternate-h3">Ad is no longer Published</h3>
+  </div>
+  else if(!data) return <FullScreenLoader />
   return (
     <div className="product-info-container">
       <div className="image-container">
@@ -68,7 +72,9 @@ const ProductInfo = () => {
       <div className="price-container">RS: {data.price}</div>
       <div className="description-container">{data.description}</div>
       <div className="owner-info">
-        <img src={data.owner.picture.url} alt="" />
+        <div className="image-wrapper">
+          <img src={data.owner.picture.url} alt="" />
+        </div>
         <span className="owner-name">Name: {data.owner.name}</span>
         <a className="owner-phone" href={`tel:${data.owner.phone}`}>Call</a>
         <button className="message-button">Message</button>

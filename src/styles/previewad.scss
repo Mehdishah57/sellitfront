@@ -1,0 +1,6 @@
+@import "../base";
+
+.previewad-wrapper{
+  @extend %flex-layout;
+  width: 100%;
+}
