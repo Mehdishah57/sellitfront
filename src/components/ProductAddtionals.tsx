@@ -1,18 +1,19 @@
 import React, { useState, useLayoutEffect, useRef } from "react";
 import "../styles/productadditionals.scss";
 import fetchCountriesData from "./../services/fetchCountries";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface Props {
   localState: any;
   setLocalState: React.Dispatch<any>;
+  submitForm: any;
 }
 
 interface ImageProps {
   name: string;
 }
 
-const ProductAddtionals: React.FC<Props> = ({ localState, setLocalState }) => {
+const ProductAddtionals: React.FC<Props> = ({ localState, setLocalState, submitForm }) => {
   const [price, setPrice] = useState<number | string>("");
   const [country, setCountry] = useState<string>("");
   const [city, setCity] = useState<string>("");
@@ -21,11 +22,11 @@ const ProductAddtionals: React.FC<Props> = ({ localState, setLocalState }) => {
   const [countries, setCountries] = useState<any[]>([]);
   const fetchCountries = useRef<() => void>(() => {});
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   fetchCountries.current = async () => {
     const { data, error } = await fetchCountriesData();
-    if (error) return;
+    if (error) return console.log(error);
     if (data) setCountries(data);
   };
 
@@ -34,14 +35,17 @@ const ProductAddtionals: React.FC<Props> = ({ localState, setLocalState }) => {
   }, []);
 
   const CityList = () => {
-    const { cities } = countries.find((item) => item.name === country);
-    return cities.map((item: any, index: number) => (
-      <option key={index}>{item}</option>
+    const ctr = countries.find((item) => item.name === country);
+    return ctr.cities.map((item: any, index: number) => (
+      <option key={index}>{item.city}</option>
     ));
+    
   };
 
   const handleImageChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     if (!e.currentTarget.files) return;
+    let imst = {...imageState,
+      [e.currentTarget.name]: e.currentTarget.files[0],}
     setImageState({
       ...imageState,
       [e.currentTarget.name]: e.currentTarget.files[0],
@@ -50,6 +54,7 @@ const ProductAddtionals: React.FC<Props> = ({ localState, setLocalState }) => {
       ...tempImgDisplay,
       [e.currentTarget.name]: URL.createObjectURL(e.currentTarget.files[0]),
     });
+    setLocalState({...localState, picture: imst})
   };
 
   const ImgInput: React.FC<ImageProps> = ({ name }) => (
@@ -65,21 +70,26 @@ const ProductAddtionals: React.FC<Props> = ({ localState, setLocalState }) => {
 
   const handlePriceChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     setPrice(e.currentTarget.value);
+    setLocalState({...localState, price: e.currentTarget.value})
+
   };
 
   const handleCountryChange: React.ChangeEventHandler<HTMLSelectElement> = (
     e
   ) => {
     setCountry(e.currentTarget.value);
+    setLocalState({...localState, country: e.currentTarget.value})
   };
 
   const handleCityChange: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
     setCity(e.currentTarget.value);
+    setLocalState({...localState, city: e.currentTarget.value})
+
   };
 
   const handleFinish = () => {
-    setLocalState({...localState,price,city,country,picture:imageState})
-    history.push("/dashboard/addForm/previewAd")
+    // setLocalState({...localState,price,city,country,picture:imageState})
+    submitForm().catch((err: any)=> console.log(err));
   }
 
   return (
@@ -131,11 +141,11 @@ const ProductAddtionals: React.FC<Props> = ({ localState, setLocalState }) => {
         {imageState.image5 && <ImgInput name="image6" />}
       </div>
       <div className="button-wrapper">
-        <Link to="/dashboard/addForm/description">
+        <Link to="../description">
           <i className="fa fa-arrow-left" aria-hidden="true"></i>
           Back
         </Link>
-        <button onClick={handleFinish}>Preview</button>
+        <button onClick={handleFinish}>Submit</button>
       </div>
     </div>
   );

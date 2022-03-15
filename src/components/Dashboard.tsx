@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Redirect, Switch } from 'react-router-dom';
+import { Route, Navigate, Routes } from 'react-router-dom';
 import Home from './../pages/Home';
 import Profile from './../pages/Profile';
 import Messages from './../pages/Messages';
@@ -9,18 +9,17 @@ import ProductInfo from './../pages/ProductInfo';
 
 
 const Dashboard: React.FC = () => {
-
   return (
     <div>
-      <Switch>
-        <Route path="/dashboard/productInfo/:id" component={ProductInfo}/>
-        <Route path="/dashboard/myads" component={MyAds} />
-        <Route path="/dashboard/addForm" component={AddForm} />
-        <Route path="/dashboard/home" component={Home} />
-        <Route path="/dashboard/profile" component={Profile} />
-        <Route path="/dashboard/messages" component={Messages} />
-        <Redirect to="/dashboard/home" />
-      </Switch>
+      <Routes>
+        <Route path="productInfo/:id" element={<ProductInfo />}/>
+        <Route path="myads" element={<MyAds />} />
+        <Route path="addForm/*" element={<AddForm />} />
+        <Route path="home" element={<Home />} />
+        <Route path="profile" element={<Profile />} />
+        <Route path="messages" element={<Messages />} />
+        <Route path="/" element={<Navigate to="home" />} />
+      </Routes>
     </div>
   );
 }

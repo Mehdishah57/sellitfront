@@ -24,8 +24,14 @@ const Signup = () => {
       setLoading(true);
       const {data, error} = await signup(state);
       if(data) setSuccess("You can proceed to login");
-      if (error?.message) toast.error(`${error.message}`);
-      if(error?.response?.data) setError(error.response.data)
+      if(error?.response?.data) {
+        setError(error.response.data);
+        toast.error(`${error.response.data}`);
+      }
+      else if(error) {
+        console.log(error);
+        setError("An Error has Occured")
+      }
       setLoading(false);
   }
 

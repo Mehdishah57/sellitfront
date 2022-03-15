@@ -1,6 +1,6 @@
 import React, {useState, useContext} from 'react';
 import "../styles/nav.scss";
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { UserContext } from './../global/UserContext';
 import logout from './../services/logout';
 
@@ -37,20 +37,20 @@ const Navbar: React.FC = () => {
           </Link>
         </li>
         <li onClick={handleClick} id="li3" className={active.li3}>
-          <Link to="/dashboard/messages">
+          <NavLink to="/dashboard/messages">
             <i id="icon-size-x" className="fa fa-envelope-o" aria-hidden="true"></i>
-          </Link>
+          </NavLink>
         </li>
       </ul>
       <ul className="nav-ul-2">
         {
           state && state._id?
-          <Link to="/login">
+          <Link to="login">
             <li onClick={(e)=>logout(e,setState)} id="li4" className={active.li4}>
               <i id="icon-size-x" className="fa fa-sign-out" aria-hidden="true"></i>
             </li>
           </Link>:
-          <Link to="/login">
+          <Link to="../../login">
             <li onClick={handleClick} id="li4" className={active.li4}>
               <i id="icon-size-x" className="fa fa-sign-in" aria-hidden="true"></i>
             </li>

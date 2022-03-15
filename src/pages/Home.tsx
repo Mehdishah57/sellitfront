@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Card from './../components/Card';
 import getHomeAds from './../services/getHomeAds';
+import searchProducts from "../services/searchProducts";
 import "../styles/home.scss";
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
   const [pageSize] = useState<number>(20);
@@ -11,7 +12,7 @@ const Home = () => {
   const [search, setSearch] = useState("");
   const fetchProducts = useRef<any>(null);
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   fetchProducts.current = async() => {
     const { data, error } = await getHomeAds(pageSize,pageNumber);
@@ -30,10 +31,12 @@ const Home = () => {
 
   const prevPage = () =>  setPageNumber(prevNo => prevNo>1?prevNo-1:prevNo);
 
-  const handleClick = (_id: string) => history.push(`/dashboard/productInfo/${_id}`);
+  const handleClick = (_id: string) => navigate(`../productInfo/${_id}`);
 
-  const handleSearch = () => {
-    if(!search) return;
+  const handleSearch = async() => {
+    const { data, error } = await searchProducts(search,pageSize,pageNumber);
+    if(error) return console.log("We've couldn't search for items",error);
+    setProducts(data);
   }
 
   return (

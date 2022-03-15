@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import "../styles/login.scss";
 import logo from "../loading-buffering.gif";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import login from "../services/login";
 import { toast, ToastContainer } from "react-toastify";
 import { UserContext } from './../global/UserContext';
@@ -23,7 +23,7 @@ const Login: React.FC = () => {
 
   const {setState: contextUpdate} = useContext(UserContext);
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleSubmit: React.FormEventHandler = async (event) => {
     event.preventDefault();
@@ -32,7 +32,7 @@ const Login: React.FC = () => {
     const { data, error } = await login(state);
     if(data) {
       contextUpdate(data);
-      return history.push("/dashboard/profile");
+      return navigate("/dashboard/profile");
     }
     if(error) setErr(`${error.response?.data || error.message}`);
     else if (error?.message) toast.error(`${error.message}`);

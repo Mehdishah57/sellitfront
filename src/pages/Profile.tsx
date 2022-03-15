@@ -1,7 +1,7 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { UserContext } from './../global/UserContext';
 import "../styles/profile.scss";
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logout from './../services/logout';
 import uploadUserImage from './../services/uploadUserImage';
 
@@ -10,7 +10,7 @@ const Profile: React.FC = () => {
   const [displayImg, setDisplayImg] = useState<string>("");
   const { state, setState } = useContext(UserContext);
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleImageChange: React.ChangeEventHandler<HTMLInputElement> = async(e) => {
     if(!e.currentTarget.files) return;
@@ -22,20 +22,23 @@ const Profile: React.FC = () => {
     const formData = new FormData()
     formData.append('file',picture);
     const { data , error } = await uploadUserImage(formData, state);
-    if(error) return;
+    if(error) return console.log(error);
     if(data && data.picture) setState({...state,picture: data.picture});
     setDisplayImg("");
     setPicture(null);
   }
-  if(!state || !state._id){
-    history.push("/dashboard/home");
-    return <div></div>
-  }
+
+  useEffect(()=>{
+    if(!state || !state._id)
+      navigate("../home");
+  },[state, navigate])
+  
+  if(!state || !state._id) return <div></div>
     return (
       <div className="profile-container">
         <div className="image-container">
           {
-            state && state.picture && state.picture.url?
+            state?.picture?.url?
             <div className="wrapper">
               <input type="file" onChange={handleImageChange} />
               <img style={{position:'absolute'}} width="100%" src={state.picture.url} alt=""/>
@@ -48,9 +51,9 @@ const Profile: React.FC = () => {
         </div>
         { displayImg?<button onClick={handleUpload}>Upload</button>:null }
         <div className="profile-name">{`${state?.name}`}</div>
-        <Link to="/dashboard/myads">My Ads</Link>
-        <Link to="/dashboard/addForm">Post an Ad</Link>
-        <Link onClick={(e)=>logout(e,setState)} to="/dashboard/login">Logout</Link>
+        <Link to="../myads">My Ads</Link>
+        <Link to="../addForm">Post an Ad</Link>
+        <Link onClick={(e)=>logout(e,setState)} to="../login">Logout</Link>
       </div>
     )
 }

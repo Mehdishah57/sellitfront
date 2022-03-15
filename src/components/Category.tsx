@@ -8,7 +8,7 @@ const Category: React.FC<{state: any, setState: React.Dispatch<React.SetStateAct
           (category: any) => <div className="category" onClick={()=>setState({...state,mainCategory:category})} key={category._id}>{category.name}</div>
         )}
         {state.mainCategory?.subCategories?.map(
-          (subCategory: string) => <Link to="/dashboard/addForm/titleForm"><div className="category" onClick={()=>setState({...state, category:subCategory})} key={state.mainCategory._id}>{subCategory}</div> </Link> )
+          (subCategory: string) => <Link key={subCategory} to="/dashboard/addForm/titleForm"><div className="category" onClick={()=>setState({...state, category:subCategory})} >{subCategory}</div> </Link> )
         }
     </div>
   )

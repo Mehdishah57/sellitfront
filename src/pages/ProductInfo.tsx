@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect, useRef, useContext } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import getProductInfo from '../services/getProductInfo';
 import FullScreenLoader from './../components/FullScreenLoader';
+import { UserContext } from '../global/UserContext';
 import "../styles/productInfo.scss";
 
 const ProductInfo = () => {
@@ -11,6 +12,8 @@ const ProductInfo = () => {
   const fetchProductInfo = useRef<any>(null);
 
   const { id }: any = useParams();
+  const navigate = useNavigate();
+  const { state, setState } = useContext(UserContext);
 
   fetchProductInfo.current = async () => {
     const { error, data } = await getProductInfo(id);
@@ -22,6 +25,11 @@ const ProductInfo = () => {
     if(!id) return;
     fetchProductInfo.current();
   },[id]);
+
+  const takeToMessage = () => {
+    setState({...state,productOwner:data.owner._id,productId:data._id});
+    navigate("../messages");
+  }
 
   const nextImg = () => {
     const images = Object.keys(data.picture);
@@ -73,11 +81,11 @@ const ProductInfo = () => {
       <div className="description-container">{data.description}</div>
       <div className="owner-info">
         <div className="image-wrapper">
-          <img src={data.owner.picture.url} alt="" />
+          <img src={data.owner.picture?.url} alt="" />
         </div>
         <span className="owner-name">Name: {data.owner.name}</span>
         <a className="owner-phone" href={`tel:${data.owner.phone}`}>Call</a>
-        <button className="message-button">Message</button>
+        <button onClick={takeToMessage} className="message-button">Message</button>
       </div>
     </div>
   )

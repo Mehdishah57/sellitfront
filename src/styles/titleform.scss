@@ -9,6 +9,12 @@
   padding: 20px;
   margin: 20px;
 
+  .error{
+    color: red;
+    font-weight: bolder;
+    margin-bottom: 10px
+  }
+
   .title-form-field-wrapper{
     @extend %flex-layout;
     position: relative;

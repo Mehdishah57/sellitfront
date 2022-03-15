@@ -1,0 +1,6 @@
+@import "../base";
+
+.message-main-wrapper{
+    @extend %flex-layout;
+    width: 100%;
+}
